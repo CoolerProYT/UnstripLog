@@ -1,25 +1,17 @@
 package com.coolerpromc.unstriplog.datagen;
 
 import com.coolerpromc.unstriplog.item.ModItems;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.item.Item;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Items;
-
-import java.util.concurrent.CompletableFuture;
+import net.minecraft.world.item.crafting.Recipe;
 
 public class ModRecipeProvider extends RecipeProvider {
-    private final HolderGetter<Item> items;
-
-    protected ModRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-        super(registries, output);
-        this.items = registries.lookupOrThrow(Registries.ITEM);
+    protected ModRecipeProvider(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
     }
 
     @Override
@@ -29,21 +21,5 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('#', ModItems.BARK)
                 .unlockedBy(getHasName(ModItems.BARK), has(ModItems.BARK))
                 .save(output, "paper_from_bark");
-    }
-
-    public static final class Runner extends RecipeProvider.Runner {
-        public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-            super(output, lookupProvider);
-        }
-
-        @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider lookupProvider, RecipeOutput output) {
-            return new ModRecipeProvider(lookupProvider, output);
-        }
-
-        @Override
-        public String getName() {
-            return "Unstrip Log recipes";
-        }
     }
 }

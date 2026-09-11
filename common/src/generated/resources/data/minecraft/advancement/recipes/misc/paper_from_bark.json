@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:paper_from_bark"
+        "recipes": "minecraft:paper_from_bark"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

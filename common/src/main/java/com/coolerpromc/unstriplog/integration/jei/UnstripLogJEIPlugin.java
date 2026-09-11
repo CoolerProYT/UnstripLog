@@ -13,16 +13,17 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.BlockTransformers;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @JeiPlugin
@@ -89,6 +90,6 @@ public class UnstripLogJEIPlugin implements IModPlugin {
     }
 
     public static List<ItemStack> axes(){
-        return BuiltInRegistries.ITEM.stream().filter(item -> item instanceof AxeItem).map(Item::getDefaultInstance).toList();
+        return BuiltInRegistries.ITEM.stream().filter(item -> item.components().has(DataComponents.BLOCK_TRANSFORMER) && Objects.equals(item.components().get(DataComponents.BLOCK_TRANSFORMER), BlockTransformers.AXE)).map(Item::getDefaultInstance).toList();
     }
 }

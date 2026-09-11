@@ -4,6 +4,17 @@ plugins {
     id "me.modmuss50.mod-publish-plugin"
 }
 
+repositories {
+    maven {
+        name "coolerpromcMavenPrivate"
+        url "https://maven.coolerpromc.com/private"
+        credentials {
+            username = findProperty("maven_username")
+            password = findProperty("maven_password")
+        }
+    }
+}
+
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists

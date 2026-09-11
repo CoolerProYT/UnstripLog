@@ -1,14 +1,15 @@
 package com.coolerpromc.unstriplog.datagen;
 
 import com.coolerpromc.unstriplog.Constants;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
 @EventBusSubscriber(modid = Constants.MODID)
 public class DataGenerators {
@@ -16,9 +17,12 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent.Client event){
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        event.addProvider(new ModRecipeProvider.Runner(packOutput, lookupProvider));
         event.addProvider(new ModModelProvider(packOutput));
+
+        event.createReloadableRegistryObjects(
+            new RegistrySetBuilder()
+                .add(RecipeProvider.asBootstrap(ModRecipeProvider::new)),
+            Set.of("minecraft"));
     }
 }
