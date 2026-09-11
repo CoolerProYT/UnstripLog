@@ -1,7 +1,9 @@
 package com.coolerpromc.unstriplog.datagen;
 
 import com.coolerpromc.unstriplog.Constants;
+import com.coolerpromc.unstriplog.util.ModContextIntProviders;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -14,15 +16,14 @@ import java.util.Set;
 @EventBusSubscriber(modid = Constants.MODID)
 public class DataGenerators {
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent.Client event){
+    public static void gatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
 
         event.addProvider(new ModModelProvider(packOutput));
-
-        event.createReloadableRegistryObjects(
-            new RegistrySetBuilder()
-                .add(RecipeProvider.asBootstrap(ModRecipeProvider::new)),
-            Set.of("minecraft"));
+        event.createReloadableRegistryObjects(new RegistrySetBuilder()
+                .add(RecipeProvider.asBootstrap(ModRecipeProvider::new))
+                .add(Registries.CONTEXT_INT_PROVIDER, ModContextIntProviders::bootstrap),
+            Set.of("minecraft", Constants.MODID));
     }
 }
