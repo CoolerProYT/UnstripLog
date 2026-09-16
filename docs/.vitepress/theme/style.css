@@ -1,0 +1,42 @@
+:root {
+  --vp-c-brand-1: #8a5a2b;
+  --vp-c-brand-2: #9c6a38;
+  --vp-c-brand-3: #b07c47;
+  --vp-c-brand-soft: rgba(138, 90, 43, 0.14);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #8a5a2b 25%, #6a8f3a);
+  --vp-home-hero-image-background-image: radial-gradient(circle, rgba(176, 124, 71, 0.35) 0%, rgba(176, 124, 71, 0) 70%);
+  --vp-home-hero-image-filter: blur(40px);
+
+  --ul-slot-bg: #8b8b8b;
+  --ul-slot-dark: #373737;
+  --ul-slot-light: #ffffff;
+  --ul-strip: #b45309;
+  --ul-unstrip: #4d7c0f;
+}
+
+.dark {
+  --vp-c-brand-1: #d9a86c;
+  --vp-c-brand-2: #c89455;
+  --vp-c-brand-3: #b07c47;
+  --vp-c-brand-soft: rgba(217, 168, 108, 0.16);
+  --ul-strip: #f59e0b;
+  --ul-unstrip: #a3d160;
+}
+
+/* Pixel art stays crisp at any size. */
+.VPHero .image-src,
+.VPNavBarTitle .logo,
+.pixelated {
+  image-rendering: pixelated;
+}
+
+.VPHero .image-src {
+  width: 220px;
+  height: 220px;
+}
+
+.ul-muted {
+  color: var(--vp-c-text-2);
+  font-size: 0.875em;
+}
