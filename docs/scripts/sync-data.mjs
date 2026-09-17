@@ -1,7 +1,7 @@
 // Pulls wiki data straight from the mod so the docs never drift from the game:
-// datagen output (recipes, bark fuel time), the mod's lang file (bark type names) and its item textures.
+// datagen output (recipes, bark fuel time), the mod's lang file (bark type names) and its list of item textures.
 // Run `./gradlew :neoforge:runData` first when the mod's generated data changes.
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -28,13 +28,12 @@ for (const [key, value] of Object.entries(lang)) {
   if (match) names[`unstriplog:${match[2]}`] = value
 }
 
-// Only the mod's own textures are copied; vanilla items use hosted icons on the page.
+// Item textures are served from the texture bucket, uploaded at 1024x1024 with the mod-texture-uploader skill.
+// A texture added to the mod needs uploading too, or its icon falls back to initials.
+const TEXTURES = 'https://storage.googleapis.com/coolerpromc/textures/unstriplog'
 const textures = {}
-const itemTextures = join(assets, 'textures/item')
-mkdirSync(join(docs, 'public/items'), { recursive: true })
-for (const file of readdirSync(itemTextures).filter((f) => f.endsWith('.png'))) {
-  copyFileSync(join(itemTextures, file), join(docs, 'public/items', file))
-  textures[`unstriplog:${basename(file, '.png')}`] = `/items/${file}`
+for (const file of readdirSync(join(assets, 'textures/item')).filter((f) => f.endsWith('.png'))) {
+  textures[`unstriplog:${basename(file, '.png')}`] = `${TEXTURES}/${file}`
 }
 
 // The mod writes one bark type per vanilla wood set into bark-type.json, each with a texture and a lang entry.

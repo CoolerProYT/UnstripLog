@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { withBase } from 'vitepress'
 import { itemIcon, itemName } from '../unstriplog'
 
 const props = withDefaults(
@@ -19,8 +18,7 @@ const props = withDefaults(
 )
 
 const displayName = computed(() => props.name ?? (props.id ? itemName(props.id, props.bark) : ''))
-const icon = computed(() => (props.id && !props.text ? itemIcon(props.id, props.bark) : null))
-const src = computed(() => (icon.value ? (icon.value.local ? withBase(icon.value.src) : icon.value.src) : null))
+const src = computed(() => (props.id && !props.text ? itemIcon(props.id, props.bark) : null))
 
 // Falls back to initials when an item has no icon or the hosted icon fails to load.
 const failed = ref(false)

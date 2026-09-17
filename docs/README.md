@@ -10,6 +10,8 @@ npm run dev                   # syncs data, then serves http://localhost:5173
 npm run build                 # syncs data, then builds to .vitepress/dist
 ```
 
-`npm run sync` (run automatically by `dev` and `build`) writes `.vitepress/data/data.json` and copies the mod's item textures to `public/items/`. Both are git-ignored. Vanilla textures are not copied: vanilla items and blocks load from the hosted renders at `https://storage.googleapis.com/coolerpromc/textures/`, set in `.vitepress/theme/unstriplog.ts`.
+`npm run sync` (run automatically by `dev` and `build`) writes `.vitepress/data/data.json`, which is git-ignored.
+
+No textures are bundled. Vanilla items and blocks load from `https://storage.googleapis.com/coolerpromc/textures/minecraft/`, and the mod's item textures from `https://storage.googleapis.com/coolerpromc/textures/unstriplog/` (1024x1024, uploaded with the mod-texture-uploader skill). When you add or change a texture in the mod, upload it there too; otherwise its icon shows initials.
 
 Pushes to the repository's default branch publish the site to GitHub Pages through `.github/workflows/docs.yml`.

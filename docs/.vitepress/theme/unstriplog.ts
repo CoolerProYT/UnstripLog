@@ -80,16 +80,16 @@ function titleCase(path: string): string {
 const VANILLA_ICONS = 'https://storage.googleapis.com/coolerpromc/textures'
 
 /**
- * Where to load an item's icon from. Bark uses the textures copied from the mod (a site path),
- * picked by bark type like the in-game renderer does; vanilla items use the hosted renders.
+ * Where to load an item's icon from. Bark is picked by bark type like the in-game renderer does.
+ * Mod and vanilla items both load from the hosted texture bucket.
  */
-export function itemIcon(id: string, bark?: string | null): { src: string; local: boolean } | null {
-  const local = bark && id === BARK ? data.textures[`unstriplog:${bark}_bark`] : data.textures[id]
-  if (local) return { src: local, local: true }
+export function itemIcon(id: string, bark?: string | null): string | null {
+  const modTexture = bark && id === BARK ? data.textures[`unstriplog:${bark}_bark`] : data.textures[id]
+  if (modTexture) return modTexture
   // @ts-ignore
   const [namespace, path] = id.includes(':') ? id.split(':') : ['minecraft', id]
   if (namespace !== 'minecraft') return null
-  return { src: `${VANILLA_ICONS}/${namespace}/${path}.png`, local: false }
+  return `${VANILLA_ICONS}/${namespace}/${path}.png`
 }
 
 export function seconds(ticks: number): string {
