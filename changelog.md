@@ -1,2 +1,3 @@
 ## Changes
-- Fixed non-log block unable to unstrip using dropped item
+- Added Brazilian Portuguese (pt_br) translation contributed in issue #7.
+- Updated publishing configuration for CurseForge environment requirements.
