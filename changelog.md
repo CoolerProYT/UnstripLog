@@ -1,2 +1,3 @@
+# 36.3.0.1
 ## Changes
-- Fixed non-log block unable to unstrip using dropped item
+- Fixed missing texture and translation for poplar bark
