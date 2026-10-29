@@ -1,3 +1,3 @@
-# 36.3.0.1
 ## Changes
-- Fixed missing texture and translation for poplar bark
+- Added Brazilian Portuguese (pt_br) translation contributed in issue #7.
+- Updated publishing configuration for CurseForge environment requirements.
